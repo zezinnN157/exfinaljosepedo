@@ -191,11 +191,28 @@ app.get('/lista-adocoes', (req, res) => {
   if (!req.session.isLoggedIn) {
     return res.redirect('/');
   }
-  let html = '<h1>Adoção Registradas</h1><ul>';
-  adocoes.forEach((a) => {
-    html += `<li>${a.interessado} adotou ${a.pet} em ${a.data}</li>`;
-  });
-  html += '</ul><a href="/menu">Voltar ao Menu</a>';
+  let html = `
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Adoções Registradas</title>
+      <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+      <div class="container">
+        <h1>Adoções Registradas</h1>
+        <ul>
+          ${adocoes.map(a => `<li>${a.interessado} adotou ${a.pet} em ${a.data}</li>`).join('')}
+        </ul>
+        <div class="center">
+          <a href="/menu">Voltar ao Menu</a>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
   res.send(html);
 });
 
