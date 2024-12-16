@@ -108,11 +108,28 @@ app.get('/lista-interessados', (req, res) => {
   if (!req.session.isLoggedIn) {
     return res.redirect('/');
   }
-  let html = '<h1>Interessados Cadastrados</h1><ul>';
-  interessados.forEach((i) => {
-    html += `<li>${i.nome} - ${i.email} - ${i.telefone}</li>`;
-  });
-  html += '</ul><a href="/menu">Voltar ao menu</a>';
+  let html = `
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Interessados Cadastrados</title>
+      <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+      <div class="container">
+        <h1>Interessados Cadastrados</h1>
+        <ul>
+          ${interessados.map(i => `<li><strong>${i.nome}</strong> - <span>${i.email}</span> - <span>${i.telefone}</span></li>`).join('')}
+        </ul>
+        <div class="center">
+          <a href="/menu">Voltar ao Menu</a>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
   res.send(html);
 });
 
