@@ -1,4 +1,4 @@
-// server.js
+
 const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Middleware
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -16,22 +16,22 @@ app.use(
     secret: 'secret-key',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 30 * 60 * 1000 }, // Sessão válida por 30 minutos
+    cookie: { maxAge: 30 * 60 * 1000 }, 
   })
 );
 
-// Rotas estáticas
+
 app.use('/css', express.static(path.join(__dirname, 'css')));
 
-// Usuário fixo para login
+
 const USER = { username: 'admin', password: '1234' };
 
-// Dados em memória
+
 let interessados = [];
 let pets = [];
 let adocoes = [];
 
-// Rota principal (login)
+
 app.get('/', (req, res) => {
   if (req.session.isLoggedIn) {
     return res.redirect('/menu');
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'HTMLS', 'login.html'));
 });
 
-// Login
+
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   if (username === USER.username && password === USER.password) {
@@ -50,14 +50,14 @@ app.post('/login', (req, res) => {
   res.send('<h1>Login inválido! <a href="/">Tente novamente</a></h1>');
 });
 
-// Logout
+
 app.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/');
   });
 });
 
-// Menu do sistema
+
 app.get('/menu', (req, res) => {
     if (!req.session.isLoggedIn) {
       return res.redirect('/');
@@ -87,7 +87,7 @@ app.get('/menu', (req, res) => {
     `);
   });
 
-// Cadastro de interessados
+
 app.get('/cadastro-interessados', (req, res) => {
   if (!req.session.isLoggedIn) {
     return res.redirect('/');
@@ -182,7 +182,7 @@ app.get('/lista-interessados', (req, res) => {
   res.send(html);
 });
 
-// Cadastro de pets
+
 app.get('/cadastro-pets', (req, res) => {
   if (!req.session.isLoggedIn) {
     return res.redirect('/');
@@ -277,7 +277,7 @@ app.get('/lista-pets', (req, res) => {
   res.send(html);
 });
 
-// Adoção de pets
+
 app.get('/adocao', (req, res) => {
     if (!req.session.isLoggedIn) {
       return res.redirect('/');
@@ -404,7 +404,7 @@ app.get('/lista-adocoes', (req, res) => {
   res.send(html);
 });
 
-// Inicialização do servidor
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
