@@ -191,7 +191,7 @@ app.get('/lista-adocoes', (req, res) => {
   if (!req.session.isLoggedIn) {
     return res.redirect('/');
   }
-  let html = '<h1>Adoptions Registradas</h1><ul>';
+  let html = '<h1>Adoção Registradas</h1><ul>';
   adocoes.forEach((a) => {
     html += `<li>${a.interessado} adotou ${a.pet} em ${a.data}</li>`;
   });
