@@ -198,7 +198,63 @@ app.get('/lista-adocoes', (req, res) => {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Adoções Registradas</title>
-      <link rel="stylesheet" href="/style.css">
+      <style>
+  body {
+    background-color: #f0f2f5;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 20px;
+    font-size: 2em;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  ul li {
+    background-color: #ecf0f1;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1.1em;
+  }
+  
+  ul li:nth-child(even) {
+    background-color: #dfe6e9;
+  }
+  
+  ul li::before {
+    content: "🐾"; /* Ícone de patinha */
+    margin-right: 8px;
+  }
+  
+  a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #3498db;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+  }
+</style>
     </head>
     <body>
       <div class="container">
