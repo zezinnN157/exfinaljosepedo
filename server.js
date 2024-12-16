@@ -203,11 +203,77 @@ app.get('/lista-pets', (req, res) => {
   if (!req.session.isLoggedIn) {
     return res.redirect('/');
   }
-  let html = '<h1>Pets Cadastrados</h1><ul>';
-  pets.forEach((p) => {
-    html += `<li>${p.nome} - ${p.raca} - ${p.idade} anos</li>`;
-  });
-  html += '</ul><a href="/menu">Voltar ao menu</a>';
+  let html = `
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Pets Cadastrados</title>
+      <style>
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #f8f9fa;
+          color: #333;
+          margin: 0;
+          padding: 0;
+          line-height: 1.6;
+        }
+        .container {
+          max-width: 600px;
+          margin: 30px auto;
+          background: #fff;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+        }
+        h1 {
+          text-align: center;
+          color: #2c3e50;
+          margin-bottom: 20px;
+        }
+        ul {
+          list-style: none;
+          padding: 0;
+        }
+        ul li {
+          background: #ecf0f1;
+          margin-bottom: 10px;
+          padding: 10px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        ul li:nth-child(even) {
+          background: #dfe6e9;
+        }
+        .center {
+          text-align: center;
+          margin-top: 20px;
+        }
+        a {
+          color: #3498db;
+          text-decoration: none;
+          font-weight: bold;
+        }
+        a:hover {
+          text-decoration: underline;
+          color: #2980b9;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Pets Cadastrados</h1>
+        <ul>
+          ${pets.map(p => `<li><strong>${p.nome}</strong> - ${p.raca} - ${p.idade} anos</li>`).join('')}
+        </ul>
+        <div class="center">
+          <a href="/menu">Voltar ao Menu</a>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
   res.send(html);
 });
 
